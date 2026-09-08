@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="820" viewBox="0 0 1240 820" font-family="'Leelawadee UI', 'Noto Sans Thai', 'Segoe UI', Tahoma, sans-serif" text-anchor="middle">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#2a3a4a"/>
+    </marker>
+    <style>
+      .bg     { fill: #ffffff; }
+      .title  { font-size: 19px; font-weight: 600; fill: #16212e; }
+      .person { fill: #08427b; stroke: #073b6f; }
+      .system { fill: #1168bd; stroke: #0e5aa7; }
+      .ext    { fill: #8b8b8b; stroke: #6e6e6e; }
+      .glyph  { fill: #ffffff; }
+      .stereo { font-size: 11px; font-style: italic; fill: #ffffff; opacity: .8; }
+      .name   { font-size: 15px; font-weight: 600; fill: #ffffff; }
+      .nameL  { font-size: 17px; font-weight: 600; fill: #ffffff; }
+      .desc   { font-size: 12px; fill: #ffffff; opacity: .95; }
+      .edge   { fill: none; stroke: #2a3a4a; stroke-width: 1.6; marker-end: url(#arrow); }
+      .rel    { font-size: 12px; fill: #16212e; }
+    </style>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="1240" height="820"/>
+  <text class="title" x="60" y="56" text-anchor="start">แผนภาพบริบทของระบบ NoteShare</text>
+
+  <!-- ============ ผู้ใช้ ============ -->
+  <g>
+    <rect class="person" x="370" y="120" width="200" height="130" rx="4"/>
+    <text class="stereo" x="470" y="138">&#171;Person&#187;</text>
+    <circle class="glyph" cx="470" cy="164" r="10"/>
+    <path class="glyph" d="M456,196 c0,-15 6,-19 14,-19 s14,4 14,19 z"/>
+    <text class="name" x="470" y="216">เจมส์</text>
+    <text class="desc" x="470" y="236">ผู้ค้นหาโน้ต</text>
+  </g>
+  <g>
+    <rect class="person" x="670" y="120" width="200" height="130" rx="4"/>
+    <text class="stereo" x="770" y="138">&#171;Person&#187;</text>
+    <circle class="glyph" cx="770" cy="164" r="10"/>
+    <path class="glyph" d="M756,196 c0,-15 6,-19 14,-19 s14,4 14,19 z"/>
+    <text class="name" x="770" y="216">พิม</text>
+    <text class="desc" x="770" y="236">ผู้แบ่งปันโน้ต</text>
+  </g>
+
+  <!-- ============ ระบบที่พิจารณา ============ -->
+  <g>
+    <rect class="system" x="430" y="360" width="380" height="130" rx="4"/>
+    <text class="stereo" x="620" y="380">&#171;Software System&#187;</text>
+    <text class="nameL" x="620" y="410">NoteShare</text>
+    <text class="desc" x="620" y="442">เว็บแพลตฟอร์มให้นักศึกษาอัปโหลด</text>
+    <text class="desc" x="620" y="462">ค้นหา และแบ่งปันสรุปเลกเชอร์</text>
+  </g>
+
+  <!-- ============ ระบบภายนอก ============ -->
+  <g>
+    <rect class="ext" x="480" y="620" width="280" height="130" rx="4"/>
+    <text class="stereo" x="620" y="640">&#171;External System&#187;</text>
+    <text class="name" x="620" y="668">บริการอีเมล</text>
+    <text class="desc" x="620" y="704">ผู้ให้บริการอีเมลภายนอก</text>
+  </g>
+
+  <!-- ============ ความสัมพันธ์ ============ -->
+  <path class="edge" d="M470,250 L540,360"/>
+  <text class="rel" x="460" y="295" text-anchor="end">ค้นหา ดูตัวอย่าง และดาวน์โหลดโน้ต</text>
+  <text class="rel" x="460" y="315" text-anchor="end">แล้วให้เครดิตเจ้าของโน้ต</text>
+
+  <path class="edge" d="M770,250 L700,360"/>
+  <text class="rel" x="780" y="295" text-anchor="start">อัปโหลดและจัดระเบียบโน้ต ดูการยอมรับ</text>
+  <text class="rel" x="780" y="315" text-anchor="start">และสถิติการใช้งานโน้ตของตัวเอง</text>
+
+  <path class="edge" d="M620,490 L620,620"/>
+  <text class="rel" x="640" y="548" text-anchor="start">ส่งอีเมลยืนยันบัญชี</text>
+  <text class="rel" x="640" y="568" text-anchor="start">และอีเมลแจ้งเตือน</text>
+</svg>

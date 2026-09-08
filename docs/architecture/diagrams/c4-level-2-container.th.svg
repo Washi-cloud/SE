@@ -1,0 +1,155 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="1260" viewBox="0 0 1240 1260" font-family="'Leelawadee UI', 'Noto Sans Thai', 'Segoe UI', Tahoma, sans-serif" text-anchor="middle">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#2a3a4a"/>
+    </marker>
+    <style>
+      .bg     { fill: #ffffff; }
+      .title  { font-size: 19px; font-weight: 600; fill: #16212e; }
+      .bnd    { fill: none; stroke: #7a8899; stroke-width: 1.4; stroke-dasharray: 8 5; }
+      .bndT   { font-size: 14px; font-weight: 600; fill: #4a5568; }
+      .bndS   { font-size: 12px; fill: #7a8899; }
+      .person { fill: #08427b; stroke: #073b6f; }
+      .cont   { fill: #438dd5; stroke: #3c7fc0; }
+      .db     { fill: #438dd5; stroke: #3c7fc0; }
+      .dbTop  { fill: #5a9cdd; stroke: #3c7fc0; }
+      .glyph  { fill: #ffffff; }
+      .stereo { font-size: 11px; font-style: italic; fill: #ffffff; opacity: .8; }
+      .name   { font-size: 15px; font-weight: 600; fill: #ffffff; }
+      .tech   { font-size: 11.5px; font-style: italic; fill: #ffffff; opacity: .92; }
+      .desc   { font-size: 12px; fill: #ffffff; opacity: .95; }
+      .descS  { font-size: 11.5px; fill: #ffffff; opacity: .95; }
+      .edge   { fill: none; stroke: #2a3a4a; stroke-width: 1.6; marker-end: url(#arrow); }
+      .rel    { font-size: 12px; fill: #16212e; }
+      .proto  { font-size: 11px; font-style: italic; fill: #52606d; }
+    </style>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="1240" height="1260"/>
+  <text class="title" x="60" y="56" text-anchor="start">แผนภาพ Container ของ NoteShare</text>
+
+  <!-- ขอบเขตระบบ -->
+  <rect class="bnd" x="60" y="290" width="1120" height="930" rx="6"/>
+  <text class="bndT" x="80" y="318" text-anchor="start">NoteShare</text>
+  <text class="bndS" x="80" y="336" text-anchor="start">[ระบบซอฟต์แวร์]</text>
+
+  <!-- ============ ผู้ใช้ ============ -->
+  <g>
+    <rect class="person" x="370" y="120" width="200" height="130" rx="4"/>
+    <text class="stereo" x="470" y="138">&#171;Person&#187;</text>
+    <circle class="glyph" cx="470" cy="164" r="10"/>
+    <path class="glyph" d="M456,196 c0,-15 6,-19 14,-19 s14,4 14,19 z"/>
+    <text class="name" x="470" y="216">เจมส์</text>
+    <text class="desc" x="470" y="236">ผู้ค้นหาโน้ต</text>
+  </g>
+  <g>
+    <rect class="person" x="670" y="120" width="200" height="130" rx="4"/>
+    <text class="stereo" x="770" y="138">&#171;Person&#187;</text>
+    <circle class="glyph" cx="770" cy="164" r="10"/>
+    <path class="glyph" d="M756,196 c0,-15 6,-19 14,-19 s14,4 14,19 z"/>
+    <text class="name" x="770" y="216">พิม</text>
+    <text class="desc" x="770" y="236">ผู้แบ่งปันโน้ต</text>
+  </g>
+
+  <!-- ============ container ============ -->
+  <g>
+    <rect class="cont" x="495" y="350" width="250" height="130" rx="4"/>
+    <text class="stereo" x="620" y="370">&#171;Container&#187;</text>
+    <text class="name" x="620" y="394">Single-Page App</text>
+    <text class="tech" x="620" y="412">[React + Vite]</text>
+    <text class="desc" x="620" y="438">UI ค้นหา กรอง ดูตัวอย่าง</text>
+    <text class="desc" x="620" y="458">อัปโหลด และให้เครดิต</text>
+  </g>
+  <g>
+    <rect class="cont" x="495" y="560" width="250" height="130" rx="4"/>
+    <text class="stereo" x="620" y="580">&#171;Container&#187;</text>
+    <text class="name" x="620" y="604">API Gateway</text>
+    <text class="tech" x="620" y="622">[Python + Flask]</text>
+    <text class="desc" x="620" y="648">ทางเข้าเดียวของระบบ</text>
+    <text class="desc" x="620" y="668">ตรวจสอบ JWT</text>
+  </g>
+  <g>
+    <rect class="cont" x="185" y="800" width="250" height="130" rx="4"/>
+    <text class="stereo" x="310" y="820">&#171;Container&#187;</text>
+    <text class="name" x="310" y="844">User &amp; Auth Service</text>
+    <text class="tech" x="310" y="862">[Python + Flask]</text>
+    <text class="desc" x="310" y="888">สมัครสมาชิก เข้าสู่ระบบ</text>
+    <text class="desc" x="310" y="908">ออก JWT จัดการโปรไฟล์</text>
+  </g>
+  <g>
+    <rect class="cont" x="495" y="800" width="250" height="130" rx="4"/>
+    <text class="stereo" x="620" y="820">&#171;Container&#187;</text>
+    <text class="name" x="620" y="844">Stats Service</text>
+    <text class="tech" x="620" y="862">[Python + Flask]</text>
+    <text class="desc" x="620" y="888">สถิติยอดดาวน์โหลด</text>
+    <text class="desc" x="620" y="908">และการใช้งาน</text>
+  </g>
+  <g>
+    <rect class="cont" x="805" y="800" width="250" height="130" rx="4"/>
+    <text class="stereo" x="930" y="820">&#171;Container&#187;</text>
+    <text class="name" x="930" y="844">Notes Service</text>
+    <text class="tech" x="930" y="862">[Python + Flask]</text>
+    <text class="desc" x="930" y="888">ข้อมูลโน้ต ค้นหา/กรอง</text>
+    <text class="desc" x="930" y="908">อัปโหลด–ดาวน์โหลด เครดิต</text>
+  </g>
+
+  <!-- ============ ที่เก็บข้อมูล ============ -->
+  <g>
+    <path class="db" d="M335,1074 L335,1176 A130,14 0 0 0 595,1176 L595,1074 Z"/>
+    <ellipse class="dbTop" cx="465" cy="1074" rx="130" ry="14"/>
+    <text class="stereo" x="465" y="1098">&#171;Container&#187;</text>
+    <text class="name" x="465" y="1120">PostgreSQL Database</text>
+    <text class="tech" x="465" y="1138">[PostgreSQL]</text>
+    <text class="descS" x="465" y="1158">ผู้ใช้ metadata ของโน้ต</text>
+    <text class="descS" x="465" y="1176">รายวิชา และเครดิต</text>
+  </g>
+  <g>
+    <path class="db" d="M805,1074 L805,1176 A125,14 0 0 0 1055,1176 L1055,1074 Z"/>
+    <ellipse class="dbTop" cx="930" cy="1074" rx="125" ry="14"/>
+    <text class="stereo" x="930" y="1100">&#171;Container&#187;</text>
+    <text class="name" x="930" y="1124">Object Storage</text>
+    <text class="tech" x="930" y="1142">[S3-compatible]</text>
+    <text class="desc" x="930" y="1168">ไฟล์โน้ตที่อัปโหลด</text>
+  </g>
+
+  <!-- ============ ความสัมพันธ์ ============ -->
+  <path class="edge" d="M470,250 L570,350"/>
+  <text class="rel"   x="480" y="292" text-anchor="end">ใช้งาน</text>
+  <text class="proto" x="480" y="308" text-anchor="end">[HTTPS]</text>
+
+  <path class="edge" d="M770,250 L670,350"/>
+  <text class="rel"   x="760" y="292" text-anchor="start">ใช้งาน</text>
+  <text class="proto" x="760" y="308" text-anchor="start">[HTTPS]</text>
+
+  <path class="edge" d="M620,480 L620,560"/>
+  <text class="rel"   x="640" y="512" text-anchor="start">เรียกผ่าน</text>
+  <text class="proto" x="640" y="528" text-anchor="start">[REST/JSON over HTTPS]</text>
+
+  <path class="edge" d="M545,690 L330,800"/>
+  <text class="rel"   x="410" y="737" text-anchor="end">ส่งต่อไปยัง</text>
+  <text class="proto" x="410" y="753" text-anchor="end">[REST/JSON]</text>
+
+  <path class="edge" d="M620,690 L620,800"/>
+  <text class="rel"   x="640" y="737" text-anchor="start">ส่งต่อไปยัง</text>
+  <text class="proto" x="640" y="753" text-anchor="start">[REST/JSON]</text>
+
+  <path class="edge" d="M695,690 L910,800"/>
+  <text class="rel"   x="860" y="737" text-anchor="start">ส่งต่อไปยัง</text>
+  <text class="proto" x="860" y="753" text-anchor="start">[REST/JSON]</text>
+
+  <path class="edge" d="M310,930 L392,1066"/>
+  <text class="rel"   x="290" y="985" text-anchor="end">อ่าน/เขียน</text>
+  <text class="proto" x="290" y="1001" text-anchor="end">[SQL]</text>
+
+  <path class="edge" d="M620,930 L520,1061"/>
+  <text class="rel"   x="505" y="1010" text-anchor="end">อ่าน</text>
+  <text class="proto" x="505" y="1026" text-anchor="end">[SQL]</text>
+
+  <path class="edge" d="M860,930 L578,1069"/>
+  <text class="rel"   x="745" y="955" text-anchor="end">อ่าน/เขียน</text>
+  <text class="proto" x="745" y="971" text-anchor="end">[SQL]</text>
+
+  <path class="edge" d="M930,930 L930,1060"/>
+  <text class="rel"   x="950" y="985" text-anchor="start">อ่าน/เขียนไฟล์</text>
+  <text class="proto" x="950" y="1001" text-anchor="start">[S3 API]</text>
+</svg>
