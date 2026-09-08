@@ -1,0 +1,107 @@
+# CI สำหรับ NoteShare — รันทุก push และทุก PR ที่ยิงเข้า main
+# ทั้งสาม job แยกกันเพื่อให้เห็นชัดว่าอะไรพัง: เทสต์ JS, เทสต์ Python, หรือ image build
+name: CI
+
+on:
+  push:
+    branches: [main]
+  # ไม่กรอง branch ปลายทาง เพราะ PR ที่ซ้อนกัน (base เป็น feature branch อื่น)
+  # จะไม่ถูกทดสอบเลยถ้าจำกัดไว้แค่ `branches: [main]`
+  pull_request:
+
+jobs:
+  js-tests:
+    name: Unit tests (JS prototypes)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # ใช้ test runner ที่มากับ Node เอง ไม่ต้องมี package.json / npm install
+      # ต้อง cd เข้าโฟลเดอร์แล้วรัน `node --test` เปล่า ๆ — ถ้าส่ง path โฟลเดอร์เป็น
+      # argument ตรง ๆ Node 24 จะตีความว่าเป็นชื่อ module แล้ว MODULE_NOT_FOUND
+      - name: Run note-utils tests
+        working-directory: prototypes/sprint1
+        run: node --test
+
+  python-tests:
+    name: Unit tests (Stats Service)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          pip install -r services/stats-service/requirements.txt
+          pip install -r services/notes-service/requirements.txt
+          pip install -r src/tests/requirements-dev.txt
+
+      - name: Run pytest
+        run: pytest src/tests -v
+
+  docker-build:
+    name: Build & smoke-test stack
+    runs-on: ubuntu-latest
+    # ไม่ต้องเสียเวลา build image ถ้าเทสต์ยังไม่ผ่าน
+    needs: [js-tests, python-tests]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build and start the whole stack
+        run: docker compose up -d --build
+
+      # gunicorn/postgres ใช้เวลา boot ไม่กี่วินาที — retry แทนการ sleep ตายตัว
+      - name: Wait for services to become healthy
+        run: |
+          for url in http://localhost:5000/health http://localhost:5001/health; do
+            ok=false
+            for i in $(seq 1 20); do
+              if curl -fsS "$url" > /dev/null; then ok=true; break; fi
+              sleep 3
+            done
+            if [ "$ok" != true ]; then
+              echo "::error::$url did not become healthy"
+              docker compose logs
+              exit 1
+            fi
+            echo "$url OK"
+          done
+
+      # เส้นทาง end-to-end ของ US-08: อัปโหลดพร้อม metadata -> กรองเจอ -> ดาวน์โหลดไฟล์เดิมกลับมา
+      - name: End-to-end smoke test (upload -> filter -> download)
+        run: |
+          set -euo pipefail
+          # ใช้ printf '%s' เพราะ '%PDF' ถูกตีความเป็น format specifier ที่ไม่มีอยู่จริง
+          printf '%s' '%PDF-1.4 ci smoke note' > /tmp/note.pdf
+          note_id=$(curl -fsS -X POST http://localhost:5001/notes             -F 'title=CI smoke note'             -F 'subject_name=Data Structures'             -F 'subject_code=CS201'             -F 'faculty=ICT'             -F 'year_level=2'             -F 'lesson=Linked List'             -F 'class_date=2026-08-20'             -F 'file=@/tmp/note.pdf;type=application/pdf' | jq -r '.id')
+          echo "created note #$note_id"
+
+          count=$(curl -fsS 'http://localhost:5001/notes?faculty=ICT&year_level=2&q=CS201' | jq '.count')
+          test "$count" -eq 1
+
+          curl -fsS "http://localhost:5001/notes/$note_id/download" -o /tmp/downloaded.pdf
+          cmp /tmp/note.pdf /tmp/downloaded.pdf
+          echo "end-to-end OK"
+
+      - name: Metadata validation is enforced
+        run: |
+          status=$(curl -s -o /dev/null -w '%{http_code}' -X POST http://localhost:5001/notes -F 'title=missing everything else')
+          test "$status" = "400"
+
+      - name: Dump logs on failure
+        if: failure()
+        run: docker compose logs
+
+      - name: Tear down
+        if: always()
+        run: docker compose down -v
